@@ -1,0 +1,28 @@
+services:
+
+  tagservice1:
+    build: ./TagService
+    container_name: tagservise1
+    ports:
+      - "8081:8081"
+    environment:
+      - SERVER_PORT=8081
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka1:8761/eureka/
+    depends_on:
+      - eureka1
+    networks:
+      - my_network
+    
+
+  eureka1:
+    build: ./EurekaService
+    container_name: eureka1
+    ports:
+      - "8761:8761"
+    environment:
+      SERVER_PORT: 8761
+
+
+networks:
+  my_network:
+    driver: bridge
